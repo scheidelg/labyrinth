@@ -2,11 +2,14 @@
  * labyrinth.js
  * -----------------------------------------------------------------------------
  * Server-side JavaScript leveraging nginx JavaScript (njs) to generate random
- * labyrinth pages. See https://github/scheidel/labyrinth.
+ * labyrinth pages by pulling multiple random blocks of text from a corpus file,
+ * formatting each block with an anchor tag to create an HREF that leads to an
+ * additional labyrinth page, and concatenating the formatted blocks together.
+ * Arguments to the script control the size of each block, the total amount of
+ * content to retrieve, the server-side location of the corpus file, and the
+ * URI path to use in crafting labyrinth links.
  *
- * Content is retrieved until either block_size is reached, or a certain # of
- * reads from the corpus are performed (see loop_limiter).
- *
+ * (c) Greg Scheidel - CC-BY-NC-ND -- see https://github/scheidel/labyrinth
  * -----------------------------------------------------------------------------
  * Arguments - Passed using 'set' statements in the nginx web service
  * configuration.
