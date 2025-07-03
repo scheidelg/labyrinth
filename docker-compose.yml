@@ -1,0 +1,32 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
+
+    # bind mount host OS files and directores to the container file system view,
+    # read-only; so that we can read the host OS files from within the container
+    # without having to copy the content in, and make changes to these files
+    # without having to rebuild the image.
+    volumes:
+      # HTML content for the web service (including the robots.txt page).
+      - ./html:/usr/share/nginx/html/:ro
+
+      # Corpus file from which labyrinth.js retrieves chunks of content.
+      - ./data/bladerunner.txt:/etc/nginx/data/bladerunner.txt:ro
+
+      # Primary nginx configuration file; loads the  ngx_http_js_module.so
+      # module and imports the labyrinth.js script for use by web services.
+      - ./nginx-conf/nginx.conf:/etc/nginx/nginx.conf:ro
+
+      # Default web service configuration; redirects requests for disallowed
+      # pages into the labyrinth.
+      - ./nginx-conf/default.conf:/etc/nginx/conf.d/default.conf:ro
+
+      # Contains the labyrinth.js server-side script that generates the
+      # labyrinth pages.
+      - ./js:/etc/nginx/js:ro
+
+    restart: unless-stopped
