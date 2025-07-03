@@ -1,6 +1,6 @@
 # Web Labyrinth
 
-This project sets up an nginx server inside a Docker container to host a 'web labyrinth' that traps crawlers in an endless maze. Each page served up by the labyrinth consists of content pulled randomly from a corpus file, with the content formatted with hyperlinks that retrieve additional labyrinth pages. Well-behaved crawlers see a `robots.txt` disallowing access to all resources with a path starting with '/ephi'; malicious actors that ignore the `robots.txt` instructions are lured into the labyrinth.
+This project sets up an nginx server inside a Docker container to host a 'web labyrinth' that traps crawlers in an endless maze. Each page served up by the labyrinth consists of content pulled randomly from a corpus file, with the content formatted with hyperlinks that retrieve additional labyrinth pages. Well-behaved crawlers see a `robots.txt` disallowing access to all resources with a path that starts with '/ephi'; malicious actors that ignore the `robots.txt` instructions are lured into the labyrinth.
 
 Additional details on the operation of the application are in the comments of the configuration, HTML, and script files.
 
@@ -55,7 +55,7 @@ User-agent: *
 Disallow: /ephi
 ```
 
-All clients are disallowed access to pages with paths starting with '/ephi'.
+All clients are disallowed access to pages with paths that start with '/ephi'.
 
 ## Viewing Labyrinth Activity Logs
 
