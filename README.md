@@ -1,6 +1,6 @@
 # Web Labyrinth
 
-This project sets up an Nginx server inside a Docker container to host a 'web labyrinth' that traps crawlers in an endless maze. Each page served up by the labyrinth consists of content pulled randomly from a corpus file, with hyperlinks that retrieve additional labyrinth pages. Well-behaved crawlers see a `robots.txt` disallowing `/ephi.html`; malicious actors that ignore the `robots.txt` instructions are lured into the labyrinth.
+This project sets up an nginx server inside a Docker container to host a 'web labyrinth' that traps crawlers in an endless maze. Each page served up by the labyrinth consists of content pulled randomly from a corpus file, with the content formatted with hyperlinks that retrieve additional labyrinth pages. Well-behaved crawlers see a `robots.txt` disallowing access to `/ephi.html`; malicious actors that ignore the `robots.txt` instructions are lured into the labyrinth.
 
 Additional details on the operation of the application are in the comments of the configuration, HTML, and script files.
 
@@ -15,12 +15,12 @@ Additional details on the operation of the application are in the comments of th
     - `css/`
         - `style.css` : Style sheet.
     - `index.html` : Main page of the web site; the 'legitimate' page for users and crawlers.
-    ` `robots.txt` : The file that tells well-behaved crawlers what to skip over -- and tells attackers what to home in on.
+    - `robots.txt` : The file that tells well-behaved crawlers what to skip over -- and tells attackers what to home in on.
 - `js/`
     - `labyrinth.js` : Server-side JaveScript that generates the random pages (with links to additional labyrinth pages), using nginx JavaScript (njs).
 - `nginx-conf`
     - `default.conf` : Configuration for the web site, including the redirect to the labyrinth content.
-    - `nginx.conf` : Configuration for the nginx service, including loading the `ngx_http_js_module.so` module and the labyrinth script.
+    - `nginx.conf` : Configuration for the nginx service, including loading the `ngx_http_js_module.so` module and importing the labyrinth.js script file.
 
 ## Startup
 
@@ -36,7 +36,7 @@ Or, if you are using the original version of Docker Compose as a standalone Pyth
 docker-compose up -d
 ```
 
-The container is started in detached mode, and the nginx web service is mapped to host port 8080/tcp.
+This starts the container in detached mode, and the nginx web service is mapped to host port 8080/tcp.
 
 *Note: The port mapping can be modified by editing the `docker-compose.yml` file.*
 
@@ -65,7 +65,11 @@ You can view the labyrinth activity logs with the following command:
 docker logs -f labyrinth_web_1 2>1 | grep 'ephi'
 ```
 
-### Simulating Well-behaved Crawlers
+*Note:*
+- *If you change the base path for the labyrinth content in the `docker-compose.yml` file, change this filter to match.*
+- *If your cloned repository isn't in a directory named `labyrinth/`, then the name of the docker container will be different.*
+
+## Simulating Well-behaved Crawlers
 
 Well-behaved crawlers will respect the `robots.txt` directives. This can be simulated with a command similar to the following:
 
@@ -73,7 +77,7 @@ Well-behaved crawlers will respect the `robots.txt` directives. This can be simu
 wget --spider --recursive http://localhost:8080/
 ```
 
-### Simulating Ill-behaved Crawlers
+## Simulating Ill-behaved Crawlers
 
 Ill-behaved crawlers will ignore the `robots.txt` directives. This can be simulated with a command similar to the following:
 
@@ -101,6 +105,6 @@ This project was created by Greg Scheidel (@greg_scheidel).
 
 ## Credit
 
-The project concept was inspired by from https://github.com/aboutsecurity/tyrellgrid, written by Ismael Valenzuela (@aboutsecurity), author of SANS Security 530, the #AllAroundDefender class; but uses server-side JavaScript so that automated web crawlers will get trapped in the labyrinth.
+The project concept was inspired by (and uses the `style.css` file from) https://github.com/aboutsecurity/tyrellgrid, written by Ismael Valenzuela (@aboutsecurity), author of SANS Security 530, the #AllAroundDefender class; but uses server-side JavaScript so that automated web crawlers will get trapped in the labyrinth.
 
 Both this project and Ismael's project were inspired by https://github.com/mayhemiclabs/weblabyrinth.
