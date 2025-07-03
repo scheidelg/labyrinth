@@ -59,10 +59,10 @@ All clients are disallowed access to `/ephi.html`.
 
 ## Viewing Labyrinth Activity Logs
 
-You can view the labyrinth activity logs with the following command:
+You can view and follow the labyrinth activity logs with the following command:
 
 ```
-docker logs -f labyrinth_web_1 2>&1 | grep 'ephi'
+docker logs -f labyrinth_web_1 2>&1 | grep '/ephi'
 ```
 
 *Note:*
