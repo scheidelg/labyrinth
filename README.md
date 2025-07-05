@@ -108,3 +108,6 @@ This project was created by Greg Scheidel (@greg_scheidel).
 The project concept was inspired by (and uses the `style.css` file from) https://github.com/aboutsecurity/tyrellgrid, written by Ismael Valenzuela (@aboutsecurity), author of SANS Security 530, the #AllAroundDefender class; but uses server-side JavaScript so that automated web crawlers will get trapped in the labyrinth.
 
 Both this project and Ismael's project were inspired by https://github.com/mayhemiclabs/weblabyrinth.
+
+-----
+(c) Greg Scheidel - CC-BY-NC-ND -- see https://github/scheidel/labyrinth
