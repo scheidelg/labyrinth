@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "8080:80"
+      - '8080:80'
 
     # bind mount host OS files and directores to the container file system view,
     # read-only; so that we can read the host OS files from within the container
@@ -30,3 +30,4 @@ services:
       - ./js:/etc/nginx/js:ro
 
     restart: unless-stopped
+    network_mode: bridge
